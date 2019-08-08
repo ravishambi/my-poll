@@ -31,4 +31,15 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 	}
 
+	public UserDetails loadUserById(long userId) throws UsernameNotFoundException{
+		Optional<User> optionalUser = userRepository.findById(userId);
+		optionalUser
+		.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+		
+		return optionalUser
+				.map(CustomUserDetails::new)
+				.get();
+		
+	}
+
 }

@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -52,7 +51,6 @@ public class User {
 	
 	@NotNull
 	//@Column(name="password", length = 20)
-	@Size(min=5, max=20)
 	private String password;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
