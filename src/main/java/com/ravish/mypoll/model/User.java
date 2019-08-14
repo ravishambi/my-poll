@@ -18,6 +18,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.ravish.mypoll.audit.DateAudit;
+
 @Entity
 @Table(name="users", uniqueConstraints = {
 		@UniqueConstraint(columnNames = {
@@ -27,7 +29,7 @@ import javax.validation.constraints.Size;
 				"email"
 		})
 })
-public class User {
+public class User extends DateAudit{
 	
 	@javax.persistence.Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
