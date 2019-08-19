@@ -13,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="choices")
 public class Choice {
@@ -28,10 +30,15 @@ public class Choice {
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	//@JoinColumn(name = "poll_id", foreignKey = @ForeignKey(name = "fk_poll_id"))
+	@JsonBackReference
 	private Poll poll;
 	
 	public Choice() {
 		
+	}
+
+	public Choice(String choice) {
+		this.choice = choice;
 	}
 
 	public Long getId() {

@@ -9,10 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.ravish.mypoll.audit.DateAudit;
 
 @Entity
-@Table(name="votes")
-public class Vote {
+@Table(name="votes", uniqueConstraints= {
+		@UniqueConstraint(columnNames = { "poll_id","user_id" })
+})
+public class Vote extends DateAudit{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

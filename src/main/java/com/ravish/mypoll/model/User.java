@@ -72,6 +72,7 @@ public class User extends DateAudit{
 	}
 	
 	public User(User userDetails) {
+		this.Id = userDetails.getId();
 		this.name = userDetails.getUserName();
 		this.username = userDetails.getUserName();
 		this.email = userDetails.getEmail();

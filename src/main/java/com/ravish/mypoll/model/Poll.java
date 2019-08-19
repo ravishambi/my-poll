@@ -16,6 +16,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ravish.mypoll.audit.UserDateAudit;
 
 @Entity
@@ -33,6 +38,9 @@ public class Poll extends UserDateAudit{
 	@NotNull
 	@Size(min = 2, max = 6)
 	@OneToMany(fetch=FetchType.LAZY, cascade =CascadeType.ALL, mappedBy="poll")
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=10)
+	@JsonManagedReference
 	private List<Choice> choices = new ArrayList<>();
 	
 	@NotNull
@@ -69,6 +77,16 @@ public class Poll extends UserDateAudit{
 
 	public void setExpirationDateTime(Instant expirationDateTime) {
 		this.expirationDateTime = expirationDateTime;
+	}
+	
+	public void addChoice(Choice choice) {
+		this.choices.add(choice);
+		choice.setPoll(this);
+	}
+	
+	public void removeChoice(Choice choice) {
+		this.choices.remove(choice);
+		choice.setPoll(null);
 	}
 
 	
